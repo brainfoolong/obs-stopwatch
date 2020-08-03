@@ -42,4 +42,4 @@ Examples:
 If you use method 2, there is a configuration part at the top of the file where you can modify the parameters.
 
 ## How does it look like ?
-![Demo](https://rawcdn.githack.com/brainfoolong/obs-stopwatch/cc6f211fc6ff23ec483e11b288b754fa5e39a795/demonstration.gif)
+![Demo](https://rawcdn.githack.com/brainfoolong/obs-stopwatch/80b76d279bf326c9029514e56f69b44e2dddcb20/demo-images/demonstration.gif)
