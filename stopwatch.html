@@ -5,8 +5,8 @@
     <title>OBS Stopwatch</title>
     <script>
       // configuration
-      const START_TIME = '00:00:00'
-      const MODE = 'count_up' // count_up or count_down
+      let START_TIME = '00:00:00'
+      let MODE = 'count_up' // count_up or count_down
     </script>
     <style type="text/css">
       .stopwatch {
@@ -68,6 +68,14 @@
         currentTime = newTime
       }
       setTimeout(update, 200)
+    }
+
+    // modify parameters based on URL parameters when loaded from an URL
+    if (location.search) {
+      let m = location.search.match(/START_TIME\=([0-9\:]+)/i)
+      if (m) START_TIME = m[1]
+      m = location.search.match(/MODE\=([a-z_]+)/i)
+      if (m) MODE = m[1]
     }
 
     let stopwatch = document.querySelector('.stopwatch')
