@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OBS Stopwatch</title>
+    <script>
+      // configuration
+      const START_TIME = '00:00:00'
+      const MODE = 'count_up' // count_up or count_down
+    </script>
+    <style type="text/css">
+      .stopwatch {
+        text-align: center;
+        font-size: 60px;
+        height: 120px;
+        color: #fcedd8;
+        font-family: 'Arial', cursive;
+        font-weight: 700;
+        text-shadow: 2px 2px 0 #eb452b,
+        4px 4px 0 #efa032,
+        6px 6px 0 #46b59b;
+        background: rgba(0, 0, 0, .4);
+        border-top-left-radius: 10px;
+      }
+    </style>
+</head>
+<body>
+<div class="stopwatch"></div>
+<script>
+  (function () {
+
+    /**
+     * Convert a 00:00:00 into seconds
+     * @param {string} str
+     * @returns {number}
+     */
+    function strToSeconds (str) {
+      let exp = str.split(':')
+      return (parseInt(exp[0]) * 3600) + (parseInt(exp[1]) * 60) + (parseInt(exp[2]))
+    }
+
+    /**
+     * Convert a given number into clock str with leading zero if required
+     * @param {number} nr
+     * @returns {string}
+     */
+    function numberToStr (nr) {
+      if (nr < 10) return '0' + nr
+      return nr.toString()
+    }
+
+    /**
+     * Update the clock
+     */
+    function update () {
+      let date = new Date()
+      let diffSeconds = Math.ceil((date.getTime() - currentDate.getTime()) / 1000)
+      if (MODE === 'count_down') {
+        diffSeconds = startTimeSeconds - (date.getTime() - startDate.getTime()) / 1000
+      }
+      if (diffSeconds < 0) diffSeconds = 0
+      let seconds = Math.floor(diffSeconds % 60)
+      let minutes = Math.floor((diffSeconds / 60) % 60)
+      let hours = Math.floor(diffSeconds / 3600)
+      let newTime = numberToStr(hours) + ':' + numberToStr(minutes) + ':' + numberToStr(seconds)
+      if (newTime !== currentTime) {
+        stopwatch.innerHTML = newTime
+        currentTime = newTime
+      }
+      setTimeout(update, 200)
+    }
+
+    let stopwatch = document.querySelector('.stopwatch')
+    let startTimeSeconds = strToSeconds(START_TIME)
+    let currentTime = null
+    let startDate = new Date()
+    let currentDate = new Date((new Date().getTime()) - startTimeSeconds * 1000)
+    update()
+  })()
+</script>
+</body>
+</html>
